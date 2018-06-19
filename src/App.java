@@ -3,12 +3,8 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.text.DefaultEditorKit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,7 +50,7 @@ public class App extends JFrame {
 
 	// Combobox values
 	private String[] attributeTypes = new String[] { "string", "url", "float", "boolean", "reference", "comment", "pdf", "image" };
-	private String[] attributeTypesAlt = new String[] { "string", "url", "number"};
+	private String[] attributeTypesAlt = new String[] { "string", "url", "float"};
 
 	private JTextArea aboutField = new JTextArea("");
 
