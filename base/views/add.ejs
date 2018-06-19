@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/@item@/adminlist">@item@</a></li>
+    <li class="breadcrumb-item active">Add</li>
+  </ol>
+
+  <h1 class="display-5">Add @item@</h1>
+  <form id="addForm" method="post" action="/@item@/create" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+@form@
+
+    <hr>
+    <button type="submit" class="btn btn-primary" value="Add new @item@">Add new @item@</button>
+  </form>
+</div>
+

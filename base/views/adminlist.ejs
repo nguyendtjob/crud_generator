@@ -1,0 +1,378 @@
+<script src="/js/jquery-2.1.4.min.js"></script>
+<script src="/js/datatables.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/jquery.scrollTo.min.js"></script>
+<script src="/js/dataTables.buttons.min.js"></script>
+<script src="/js/buttons.print.js"></script>
+
+
+<script>
+  //Turn the page visible
+  function initFadeIn() {
+    $("#div_body").css("visibility","visible");
+    $("#div_body").fadeIn(700);
+    $("#loading").remove();
+  }
+
+  $(document).ready(function(){
+    //make the page visible
+    initFadeIn();
+
+
+    //setting the general table
+    var generalTable = $('#generalTable').DataTable({
+      dom: "<'row'>" + "<'row'<'col-sm-12'tr>>" + "<i><B>",
+      "scrollX": true,
+      "orderCellsTop": true,
+      scrollY: '65vh',
+      paging: false,
+      scrollCollapse: true,
+      //Commented part for type option
+      /*@category@"orderFixed": [ 1, 'asc' ],@category@*/
+      "order": [/*@category@[ 1, "asc" ], @category@*/[ 0, "asc" ]],
+      buttons: [
+        {
+          extend:'print',
+          text: 'Print results',
+          title: '',
+          exportOptions: {
+            stripHtml: false,
+          },
+          customize: function ( win ) {
+            //Add title
+            $(win.document.body).prepend('<p><h1>@item@ search results</h1></p>')
+
+            //Remove the input fields of the headers
+            $(win.document.body).find("input").each(function(){
+              $(this).remove();
+            });
+
+            //Remove the information icon and extra information too
+            $(win.document.body).find("th").each(function(){
+              if ($(this).index() === @fullRefColumn@ || $(this).index() === @commentIconColumn@){
+                $(this).addClass('delete');
+              }
+            });
+
+            //Remove link icon
+            $(win.document.body).find("img").remove();
+
+            //Remove dotted underline of the reference
+            $(win.document.body).find("u").contents().unwrap();
+
+            //Remove link
+            $(win.document.body).find("a").contents().unwrap();
+
+            //Reference related functions
+            var counter = 1;
+            $(win.document.body).append('<p><h4>References</h4></p>')
+
+            $(win.document.body).find("td").each(function(){
+              //Add the annotation for the reference
+              if ($(this).index() === @fullRefColumn@ - 1){
+                $(this).append('<sup><b>'+counter+'</b></sup>');
+              }
+              /*@category@
+              //Change type value into text
+              else if ($(this).index() === 1){
+                var string = $(this).text();
+                var change = @printReplace@;
+
+                $(this).text(change);
+              }@category@*/
+
+              //Append the full reference in the document
+            else if ($(this).index() === @fullRefColumn@){
+                var reference = $(this).text();
+                $(win.document.body).append('<p><b>' + counter + '</b>: ' + reference + '</p><br/>');
+                counter = counter +1;
+                $(this).addClass('delete');
+              }
+
+            else if ($(this).index() === @commentIconColumn@){
+                $(this).addClass('delete');
+              }
+            })
+
+            //Remove the full reference column and the comment icon column
+            $(win.document.body).find(".delete").remove();
+
+          }
+        }
+      ],
+
+      "columnDefs": [
+        /*@category@{
+          "targets":[1],
+          "sortable": false
+        },@category@*/
+        {
+          "targets": [@hiddenColumns@],
+          "visible": false,
+          "searchable": true
+        },
+/*@orderData@*/
+      ],
+
+      //Gives the row class to the row according to their type.
+      "rowCallback": function( nRow, aData, index ) {
+
+        //rowCallBack will be called every time datatable redraw the rows.
+        //Because of this, row color class will be added all the time. Require removal of them before adding classes
+        $('td', nRow).removeClass('row_red_even');
+        $('td', nRow).removeClass('row_red_odd');
+        $('td', nRow).removeClass('row_yellow_even');
+        $('td', nRow).removeClass('row_yellow_odd');
+        $('td', nRow).removeClass('row_green_even');
+        $('td', nRow).removeClass('row_green_odd');
+        $('td', nRow).removeClass('row_cyan_even');
+        $('td', nRow).removeClass('row_cyan_odd');
+        $('td', nRow).removeClass('row_blue_even');
+        $('td', nRow).removeClass('row_blue_odd');
+        $('td', nRow).removeClass('row_dark_even');
+        $('td', nRow).removeClass('row_dark_odd');
+        $('td', nRow).removeClass('row_grey_even');
+        $('td', nRow).removeClass('row_grey_odd');
+
+        switch(aData[1]){
+          /*@category@
+          case '0':
+            if (index%2 === 0) {
+              $('td', nRow).addClass('row_red_even');
+            }else{
+              $('td', nRow).addClass('row_red_odd');
+            }
+            break;
+
+          case '1':
+            if (index%2 === 0) {
+              $('td', nRow).addClass('row_yellow_even');
+            }else{
+              $('td', nRow).addClass('row_yellow_odd');
+            }
+            break;
+
+          case '2':
+            if (index%2 === 0) {
+              $('td', nRow).addClass('row_green_even');
+            }else{
+              $('td', nRow).addClass('row_green_odd');
+            }
+            break;
+
+          case '3':
+            if (index%2 === 0) {
+              $('td', nRow).addClass('row_cyan_even');
+            }else{
+              $('td', nRow).addClass('row_cyan_odd');
+            }
+            break;
+
+          case '4':
+            if (index%2 === 0) {
+              $('td', nRow).addClass('row_blue_even');
+            }else{
+              $('td', nRow).addClass('row_blue_odd');
+            }
+            break;
+
+          case '5':
+            if (index%2 === 0) {
+              $('td', nRow).addClass('row_dark_even');
+            }else{
+              $('td', nRow).addClass('row_dark_odd');
+            }
+            break;
+          @category@*/
+          default:
+            if (index%2 === 0) {
+              $('td', nRow).addClass('row_grey_even');
+            }else{
+              $('td', nRow).addClass('row_grey_odd');
+            }
+            break;
+        }
+      },
+
+      /*@category@
+      //Create the category row, done every time the datatable is drawn
+      "drawCallback": function () {
+        var api = this.api();
+        var rows = api.rows( {page:'current'} ).nodes();
+        var last= null;
+        var colors = ["color:#dc3545","color:#ffc107","color:#28a745","color:#17a2be","color:#007bff","color:#6c757d","color:#343a40"];
+        var group_label = [@grouplabel@];
+
+        api.column(1, {page:'current'} ).data().each( function ( group, i ) {
+          if ( last !== group) {
+            $(rows).eq( i ).before(
+              '<tr role="row" class="group" id="section'+(group)+'"><td colspan="@nbcolumns@"><span style='+colors[group]+'>'+group_label[group]+'</td></tr>'
+            );
+            last = group;
+          }
+        });
+      }@category@*/
+    });
+
+
+    //Prevents sorting when clicking on a input field
+    $('.filter').on('click', function(e){
+      e.stopPropagation();
+    });
+
+
+
+
+    //Event listener: any key input in the column filter
+    $('input.column_filter').on( 'keyup', function () {
+      //Allow the use of * as wildcard; ( and ) instead of ^ and $ as delimiters
+      var string = $(this).val().replace(/\*/g,'.').replace(/\(/g,'^').replace(/\)/g,'$');
+
+      generalTable
+        .columns($(this).attr('data-column'))
+        .search(string,true,false,true)
+        .draw();
+    });
+
+    //Event listener: strict filter
+    $('input.strict_filter').on( 'keyup', function () {
+      //Allow the use of * as wildcard; ( and ) instead of ^ and $ as delimiters
+      var string = "";
+      if ($(this).val() !== ""){
+        string = "^" + $(this).val().replace(/\*/g,'.?') + "$"
+      }
+
+      generalTable
+        .columns($(this).attr('data-column'))
+        .search(string,true,false,true)
+        .draw();
+    });
+
+    //Event listener: clear input button
+    $("#reset_input").bind("click", function() {
+      $("input[type=text], textarea").val("");
+      generalTable
+        .columns([@resetColumns@])
+        .search("",true,false,true)
+        .draw();
+    });
+
+
+    //Event listener for the navbar buttons: change the active button after a click and scroll to that part of the table
+    $(".sectionbtn").click( function() {
+      var selection;
+      $('.sectionbtn').removeClass("active");
+
+      switch(this.id){
+        case "section0btn":
+          $('#section0btn').addClass("active");
+          selection = $( "#section0" );
+          break;
+
+        case "section1btn":
+          $('#section1btn').addClass("active");
+          selection = $( "#section1" );
+          break;
+
+        case "section2btn":
+          $('#section2btn').addClass("active");
+          selection = $( "#section2" );
+          break;
+
+        case "section3btn":
+          $('#section3btn').addClass("active");
+          selection = $( "#section3" );
+          break;
+
+        case "section4btn":
+          $('#section4btn').addClass("active");
+          selection = $( "#section4" );
+          break;
+
+        case "section5btn":
+          $('#section5btn').addClass("active");
+          selection = $( "#section5" );
+          break;
+
+        case "section6btn":
+          $('#section6btn').addClass("active");
+          selection = $( "#section6" );
+          break;
+      }
+      $(".dataTables_scrollBody").scrollTo(selection);
+    });
+
+
+    //Event listener: change category button highlight and navigation bar color upon table scrolling
+    $(".dataTables_scrollBody").on('scroll', function() {
+      //Hide full reference when scrolling
+      document.getElementById("ref_zone").style.visibility = 'hidden';
+
+      /*@category@
+      $('.group').each(function(){
+        var sectionDistance = $(this).offset().top;
+        if (sectionDistance < 550){
+          $('.sectionbtn').removeClass("active");
+          $('#'+this.id+'btn').addClass("active");
+        }
+      });
+
+      @category@*/
+    });
+
+    //Event listener: display full reference when a reference is clicked by the user
+    $('.ref_text').on('click', function () {
+      var tr = $(this).closest('tr');
+      var row = generalTable.row( tr );
+      var data = row.data();
+
+      if (data[@fullRefColumn@] !== ''){
+        $('#fullref_text').text(data[@fullRefColumn@]);
+        document.getElementById("ref_zone").style.visibility = 'visible';
+      }
+    });
+
+
+    //Add margin to print button
+    $('.buttons-print').each(function() {
+      $(this).css('margin-top','7px');
+    })
+
+
+    //Apply Bootstrap tooltip style
+    $('[data-toggle="tooltip"]').tooltip();
+
+  });
+
+</script>
+
+<div id="loading">
+  <p style="text-align:center">Loading... Please wait.</p>
+</div>
+<!-- Initial setup of the page -->
+<div id="div_body" style="visibility: hidden">
+
+  <!-- Category navigation bar -->
+  <nav class="table_nav navbar navbar-expand-lg navbar-light" >
+    <div class="collapse navbar-collapse" id="navbar_category">
+      <ul class="navbar-nav mr-auto">
+        <!--@navigation@-->
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a id="reset_input" class="btn btn-sm btn-outline-light"><b>Reset filters</b></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- General Table -->
+  <div id="table-container">
+    <table id="generalTable" class="table-bordered" width="100%">
+      @itemtable@
+    </table>
+    <div>
+      <p id="ref_zone" style="visibility: hidden;" class="padded-multiline"><span style="color:blue"><b>Selected reference:</b> <i><span id="fullref_text"></span></i></span></p>
+    </div>
+  </div>
+  <hr>
+</div>

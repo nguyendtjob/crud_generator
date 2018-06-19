@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <h1>File for @itemname@</h1>
+  @data@
+</div>
+
+
+<script>
+  //Convert DataURI to blob
+  function dataURIToBlob(dataURI) {
+
+    var binStr = atob(dataURI.split(',')[1]),
+      len = binStr.length,
+      arr = new Uint8Array(len),
+      mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+    for (var i = 0; i < len; i++) {
+      arr[i] = binStr.charCodeAt(i);
+    }
+
+    return new Blob([arr], {
+      type: mimeString
+    });
+
+  }
+
+  //Call the conversion function and give blob url to the button
+  var dataURI_DL = function(data, name) {
+
+    var blob = dataURIToBlob(data);
+    var url = URL.createObjectURL(blob);
+    var blobAnchor = document.getElementById('blob');
+    blobAnchor.download = name;
+    blobAnchor.href = url;
+
+    blobAnchor.onclick = function() {
+      requestAnimationFrame(function() {
+        URL.revokeObjectURL(url);
+      })
+    };
+  };
+</script>

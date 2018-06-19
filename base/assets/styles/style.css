@@ -1,0 +1,268 @@
+/*
+Styles for general elements/layout.
+ */
+
+.nav-item {
+  padding:5px;
+}
+
+.nav_page {
+  font-weight: bold;
+}
+
+.nav_page.active {
+  color:#E53C29 !important;
+  pointer-events: none;
+  cursor: default;
+}
+
+.nav_page:hover:not(.active) {
+  text-decoration: underline;
+
+}
+
+.back-to-top {
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display:none;
+}
+
+#return-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.7);
+  width: 50px;
+  height: 50px;
+  display: block;
+  text-decoration: none;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  border-radius: 35px;
+  display: none;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#return-to-top i {
+  color: #fff;
+  margin: 0;
+  position: relative;
+  left: 16px;
+  top: 13px;
+  font-size: 19px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#return-to-top:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+#return-to-top:hover i {
+  color: #fff;
+  top: 5px;
+}
+
+u {
+  border-bottom: 2px dotted blue;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-default-outline {
+  border-color: #ccc;
+}
+
+.navbar{
+  border-color: black;
+}
+
+
+.main_content{
+  margin-bottom: 100px;
+}
+
+.tooltip-inner {
+  max-width: 450px;
+  text-align: left;
+}
+
+#wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+#header-container{
+  text-align: center;
+  height: 80px;
+}
+
+#body-container{
+  min-height: calc(100vh - 110px);
+}
+
+#footer-container{
+  height: 30px;
+  width: 100%;
+  text-align: left;
+}
+
+
+.padded-multiline {
+  border-left: 1em solid #FFFFFF;
+  display:inline-block;
+}
+
+.fb_iframe_widget {
+  position: relative;
+  top: -4px !important;
+}
+
+
+
+/*
+Styles for elements of tables
+ */
+
+#navbar-tables {
+  padding: 10px 16px;
+}
+
+#table-container {
+  position: relative;
+}
+
+th {
+  font-size: 11px;
+  text-align: center;
+}
+
+
+table.dataTable tbody td {
+  vertical-align: top !important;
+}
+
+td {
+  font-size: 14px;
+  border-color: black;
+}
+
+
+td.row_red_even, tr.row_red_even{
+  background-color: #fbe9eb !important;
+}
+
+td.row_red_odd, tr.row_red_odd{
+  background-color: #f3bec7 !important;
+}
+
+td.row_yellow_even, tr.row_yellow_even{
+  background-color: #fff9e6 !important;
+}
+
+td.row_yellow_odd, tr.row_yellow_odd{
+  background-color: #ffedb3 !important;
+}
+
+td.row_green_even, tr.row_green_even{
+  background-color: #eafaee !important;
+}
+
+td.row_green_odd, tr.row_green_odd{
+  background-color: #c1f0cd !important;
+}
+
+td.row_cyan_even, tr.row_cyan_even{
+  background-color: #e8fafc !important;
+}
+
+td.row_cyan_odd, tr.row_cyan_odd{
+  background-color: #bbf0f6 !important;
+}
+
+td.row_blue_even, tr.row_blue_even{
+  background-color: #e6f2ff !important;
+}
+
+td.row_blue_odd, tr.row_blue_odd{
+  background-color: #b3d7ff !important;
+}
+
+td.row_grey_even, tr.row_grey_even{
+  background-color: white !important;
+}
+
+td.row_grey_odd, tr.row_grey_odd{
+  background-color: #f1f2f3 !important;
+}
+
+td.row_dark_even, tr.row_dark_even{
+  background-color: #bbc1c3 !important;
+}
+
+td.row_dark_odd, tr.row_dark_odd{
+  background-color: #a0a8ab !important;
+}
+
+.comment-cell {
+  text-align: center;
+}
+
+.center_td {
+  text-align: center;
+}
+
+
+.borderless td, .borderless th {
+  border: thick;
+}
+
+.btn-group{
+  float: right !important;
+}
+
+table.dataTable thead .sorting::before,
+table.dataTable thead .sorting_asc::before {
+  display:none;
+}
+
+table.dataTable thead .sorting_desc::before {
+  display:none;
+}
+
+
+table.dataTable thead .sorting::after,
+table.dataTable thead .sorting_asc::after {
+  display:none;
+}
+
+table.dataTable thead .sorting_desc::after {
+  display:none;
+}
+
+
+/*
+Style for homepage
+ */
+
+#homepage_block {
+  margin-top: 300px;
+}
+
+/*
+Style for about page
+ */
+
+#about {
+
+  margin-left:auto;
+  margin-right:auto;
+  max-width:1000px;
+}

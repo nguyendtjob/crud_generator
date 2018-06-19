@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/@item@/adminlist">@item@</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+  </ol>
+
+  <h1 class="display-5">Edit @item@</h1>
+  <form method="post" action="/@item@/update/<%= item.id %>" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+@form@
+
+    <hr>
+    <button type="submit" class="btn btn-primary" value="Save changes">Save changes</button>
+  </form>
+</div>
+

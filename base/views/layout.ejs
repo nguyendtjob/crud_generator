@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>@sitetitle@</title>
+  <meta charset="UTF-8">
+  <meta name="author" content="@author@">
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/styles/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/datatables.min.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="/styles/style.css">
+  <!--STYLES-->
+
+  <!--STYLES END-->
+</head>
+<body>
+<div id="wrapper">
+  <div id="header-container">
+    <nav class="navbar navbar-expand-sm navbar-light mb-4 border" >
+      <a class="navbar-brand"><!-- <a href="/"><img src="/images/WEBSITE_LOGO.png"/></a> -->&emsp;<b>@sitetitle@</b></a>
+
+      <ul class="nav navbar-nav ml-auto navbar-right">
+        <% if (req.session.authenticated) { %>
+        <li class="nav-item">
+          <a class="nav-link nav_page" href="/@item@/adminlist">Edit/Remove @item@</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav_page" href="/@item@/add">Add @item@</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/User/logout"><b>Logout</b></a>
+        </li>
+        <% } else {%>
+        <li class="nav-item">
+          <a class="nav-link nav_page" href="/@item@/list">Database</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav_page" href="/about">About</a>
+        </li>
+        <!--
+        <li class="nav-item">
+          <a class="nav-link nav_page" href="/NEW_PAGE">NEW_PAGE</a>
+        </li>
+        -->
+        <% } %>
+        <li>
+          <a class="navbar-brand" href="https://www.deduveinstitute.be/" target="_blank"><img src="/images/logoDDUVsm.png"/></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div id="body-container"><%- body %></div>
+  <div id="footer-container">
+    <hr>
+    <table align="center">
+      <tr>
+        <td><a id="logo-footer" href="https://www.deduveinstitute.be/" target="_blank"><img src="/images/logoDDUV.png"/></a></td>
+        <td valign="top"><br/>&emsp;© @year@ @author@ <br> <% if (!req.session.authenticated) { %>&emsp;<a href="/User/login"><img src="/images/lock-icon.png"/> Login</a><% } %></td>
+      </tr>
+    </table>
+  </div>
+  <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="oi oi-chevron-top"></span></a>
+</div>
+<!--TEMPLATES-->
+
+<!--TEMPLATES END-->
+<script src="/js/jquery-2.1.4.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/datatables.min.js"></script>
+<script src="/js/dataTables.bootstrap4.min.js"></script>
+<script src="/js/jquery.scrollTo.min.js"></script>
+<script src="/js/dataTables.rowsGroup.js"></script>
+<!--SCRIPTS-->
+
+<!--SCRIPTS END-->
+
+<script>
+  $(document).ready(function(){
+    //Highlight the navlink depending of the current URL
+    var pathname = window.location.pathname;
+    $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+    $('.nav > li > a[href="'+pathname+'"]').addClass('active');
+
+    //Back to top button
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 50) {
+        $('#back-to-top').fadeIn();
+      } else {
+        $('#back-to-top').fadeOut();
+      }
+    });
+    // scroll body to 0px on click
+    $('#back-to-top').click(function () {
+      $('body,html').animate({
+        scrollTop: 0
+      }, 150);
+      return false;
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<div class="container-fluid" align="center">
+  <form action="/login" method="post">
+    <% if (error != null) {%>
+    <span style="color:red">Wrong Email or Password.</span><br/>
+    <% } %>
+    <label for="email">E-mail</label>
+    <br/>
+    <input class="login_input" name="email" type="text" required/>
+    <br/>
+    <br/>
+    <label for="password">Password</label>
+    <br/>
+    <input class="login_input" name="password" type="password" required/>
+    <br/>
+    <br/>
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    <input class="btn btn-primary" type="submit"/>
+  </form>
+</div>
