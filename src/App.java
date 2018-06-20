@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import file_edit.Configs;
 import file_edit.Controllers;
 import file_edit.Models;
-import file_edit.Replace;
 import file_edit.Views;
 import object.ItemAttribute;
 import utils.Utils;
@@ -497,7 +496,7 @@ public class App extends JFrame {
 		Configs.changeConfigs(path, database, item);
 
 		File dir = new File("copy");
-		Replace.renameFileorDirectory(dir, site);
+		Utils.renameFileorDirectory(dir, site);
 		System.out.println("Website " + site + " files have been successfully generated");
 	}
 
